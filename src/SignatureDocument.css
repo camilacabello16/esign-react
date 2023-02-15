@@ -1,0 +1,10 @@
+.field-sign {
+    background-color: rgba(255, 235, 235, 0.9);
+    color: rgb(117, 117, 117);
+    font-size: 18.852px;
+    width: 20%;
+    height: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

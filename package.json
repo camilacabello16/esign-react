@@ -1,0 +1,24 @@
+{
+  "name": "pdfjs-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "fast-deep-equal": "^3.1.3",
+    "pdfjs-dist": "^1.8.432",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-draggable": "^4.4.5",
+    "react-signature-pad-wrapper": "^3.3.1",
+    "rodal": "^2.0.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

@@ -1,0 +1,57 @@
+.App {
+  text-align: center;
+}
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.App-header {
+  background-color: #222;
+  height: 60px;
+  padding: 5px;
+  color: white;
+}
+
+.App-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  overflow-y: hidden;
+}
+
+.toolbar {
+  top: 60px;
+  width: 200px;
+  height: 100vh;
+  background-color: #525659;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  border-right: 1px solid #838383;
+  z-index: 10;
+}
+
+.toolbar__button {
+  width: 100%;
+  padding: 10px;
+  background: #49A09D;
+  color: white;
+  font-size: 16;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.pointer {
+  width: 10px;
+  height: 10px;
+  background: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+}

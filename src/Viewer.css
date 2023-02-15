@@ -1,0 +1,50 @@
+.Viewer {
+    background-color: #444;
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+    overflow-y: scroll;
+}
+
+.react-draggable {
+    position: absolute;
+    /* z-index: 9999; */
+    background-color: #F5D240;
+    top: 0;
+    border: 0.5px black dotted;
+    border-radius: 0.5px;
+}
+
+.pdf-wrapper {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    display: flex;
+}
+
+.drag__button {
+    display: flex;
+    width: 20%;
+    height: 5%;
+    align-items: center;
+    z-index: 100;
+}
+
+.handle {
+    background-color: #CFB3B4;
+    height: 100%;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+}
+
+.signZone {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}

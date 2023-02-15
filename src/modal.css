@@ -1,0 +1,96 @@
+.modal-sign {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #fff;
+    transform: translateX(-50%) translateY(-50%);
+    width: 40%;
+}
+
+.modal-canvas canvas {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    width: 100%;
+}
+
+.sign-type-input {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.input-name {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.input-name label {
+    text-align: left;
+    font-size: 13px;
+}
+
+.input-name input {
+    padding: 8px;
+}
+
+.button-sign-type {
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-sign-type button {
+    background-color: #fff;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+/* input file */
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.custom-file-input::before {
+    content: 'Nạp';
+    display: inline-block;
+    background: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-size: 10pt;
+    padding: 8px 16px;
+}
+
+.custom-file-input:hover::before {
+    border-color: black;
+}
+
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.form-sign-footer button {
+    background-color: #fff;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+    font-size: 13px;
+    background-color: #016b70;
+    color: #fff;
+}
+
+.form-sign-footer {
+    text-align: left;
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+}
