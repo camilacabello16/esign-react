@@ -31,7 +31,7 @@ class SignatureDocument2 extends Component {
         let eventBus = new PDFJSViewer.EventBus();
         eventBus.on('pagesinit', (e) => {
             this.setState({
-                scale: this._pdfViewer.currentScale
+                scale: this._pdfViewer.currentScale * 1.5
             });
             if (this.props.onInit) {
                 this.props.onInit({});
@@ -86,24 +86,65 @@ class SignatureDocument2 extends Component {
         this.modal.current.closeModal();
     }
 
-    openModal = () => {
-        var that = this;
-        // that.setState({ visible: true });
-        that.setState({ visible: true }, function () {
-            console.log(this.state.visible);
-        });
-        this.modal.current.showModal();
+    openModal = (index) => {
+        var dataImg = "";
+        if (this.state.dataImage.find(o => o.index == index)) {
+            dataImg = this.state.dataImage.find(o => o.index == index).image
+        }
+        this.modal.current.showModal(index, dataImg);
     }
 
-    handleDataImage = (dataImage) => {
-        var arr = [];
-        arr.push(dataImage);
-        console.log(dataImage);
+    handleDataImage = (dataImage, index) => {
+        var arr = this.state.dataImage;
+        var item = arr.find(o => o.index == index);
+        var object = {
+            index: index,
+            position: this.state.positionSign.find(o => o.index == index).position,
+            image: dataImage
+        }
+        if (item) {
+            const index = arr.indexOf(item);
+            arr[index] = object;
+        } else {
+            arr.push(object);
+        }
+
         this.setState({ dataImage: arr }, function () {
             console.log(this.state.dataImage);
         });
 
-        document.getElementById("image-sign").src = dataImage;
+        document.getElementById("image-sign-" + index).src = dataImage;
+        document.getElementById("text-sign-" + index).style.display = "none";
+
+        if (this.state.positionSign.length === this.state.dataImage.length) {
+            document.getElementById("button-send-file").style.display = "block";
+        }
+    }
+
+    handleSignAll = (dataImage) => {
+        var arr = [];
+        for (let i = 0; i < this.state.positionSign.length; i++) {
+            var object = {
+                index: this.state.positionSign[i].index,
+                position: this.state.positionSign[i].position,
+                image: dataImage
+            }
+            arr.push(object);
+
+            document.getElementById("image-sign-" + this.state.positionSign[i].index).src = dataImage;
+            document.getElementById("text-sign-" + this.state.positionSign[i].index).style.display = "none";
+        }
+        this.setState({ dataImage: arr }, function () {
+            console.log(this.state.dataImage);
+        });
+
+        if (this.state.positionSign.length === this.state.dataImage.length) {
+            document.getElementById("button-send-file").style.display = "block";
+        }
+    }
+
+    sendFile = () => {
+        console.log(this.state.dataImage);
     }
 
     render() {
@@ -116,25 +157,6 @@ class SignatureDocument2 extends Component {
                         </div>
                         {this.state.positionSign.map((item, index) => {
                             return (
-                                // <Draggable
-                                //     id='image-sign'
-                                //     key={index}
-                                //     handle=".handle"
-                                //     defaultPosition={{ x: item.position[0], y: item.position[1] }}
-                                //     onDrag={(e) => e.preventDefault()}
-                                // >
-                                //     <button
-                                //         className='field-sign'
-                                //         onClick={() => this.openModal()}
-                                //         style={{
-                                //             cursor: 'pointer'
-                                //         }}
-                                //     >
-                                //         <div>
-                                //             Chữ ký
-                                //         </div>
-                                //     </button>
-                                // </Draggable>
                                 <div
                                     key={index}
                                     style={{
@@ -144,27 +166,40 @@ class SignatureDocument2 extends Component {
                                     }}
                                     // className="sign-zone"
                                     className='field-sign'
+                                    onClick={() => this.openModal(item.index)}
                                 >
                                     <div
                                         // className='field-sign'
-                                        onClick={() => this.openModal()}
                                         style={{
                                             cursor: 'pointer'
                                         }}
+                                        id={'text-sign-' + item.index}
                                     >
                                         Chữ ký
                                     </div>
-                                    <img id='image-sign' />
+                                    <img id={'image-sign-' + item.index} />
                                 </div>
                             );
                         })}
                     </div>
+                </div>
+                <div
+                    style={{
+                        display: "none"
+                    }}
+                    className='button-send-find'
+                    id='button-send-file'
+                >
+                    <button
+                        onClick={() => this.sendFile()}
+                    >VALIDATE & SEND COMPLETED DOCUMENT</button>
                 </div>
                 <ModalSign
                     visible={this.state.visible}
                     onClose={this.closeModal}
                     ref={this.modal}
                     handleDataImage={this.handleDataImage}
+                    handleSignAll={this.handleSignAll}
                 />
             </div>
         );

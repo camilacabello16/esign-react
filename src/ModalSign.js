@@ -4,16 +4,27 @@ import 'rodal/lib/rodal.css';
 import SignaturePad from 'react-signature-pad-wrapper';
 import './modal.css';
 
-const ModalSign = forwardRef(({ visible, onClose, handleDataImage }, ref) => {
+const ModalSign = forwardRef(({ visible, onClose, handleDataImage, handleSignAll }, ref) => {
     const signatureRef = useRef();
 
     const [signType, setSignType] = useState(0); //0: draw || 1: upload
     const [show, setShow] = useState(false);
+    const [signIndex, setSignIndex] = useState('');
     // const []
 
+    useEffect(() => {
+        console.log(signatureRef);
+    }, [show])
+
     useImperativeHandle(ref, () => ({
-        showModal: () => {
+        showModal: (index, dataImg) => {
+            setSignIndex(index);
+
             setShow(true);
+            if (dataImg) {
+                // signatureRef.current.canvasRef.current.getContext("2d").drawImage(dataImg, 0, 0);
+                console.log(signatureRef.current);
+            }
         },
         closeModal: () => {
             setShow(false);
@@ -21,15 +32,17 @@ const ModalSign = forwardRef(({ visible, onClose, handleDataImage }, ref) => {
     }), [show])
 
     const signAll = () => {
-        handleDataImage(signatureRef.current.canvasRef.current.getContext("2d").getImageData(0, 0, signatureRef.current.canvasRef.current.width, signatureRef.current.canvasRef.current.height).data)
+        var img = signatureRef.current.canvasRef.current.toDataURL('image/png');
+        handleSignAll(img);
+        setShow(false);
     }
 
     const sign = () => {
-        console.log(signatureRef.current);
-        console.log(signatureRef.current.canvasRef.current.getContext("2d").getImageData(0, 0, signatureRef.current.canvasRef.current.width, signatureRef.current.canvasRef.current.height));
-        handleDataImage(signatureRef.current.canvasRef.current.getContext("2d").getImageData(0, 0, signatureRef.current.canvasRef.current.width, signatureRef.current.canvasRef.current.height).data)
+        // console.log(signatureRef.current);
+        // console.log(signatureRef.current.canvasRef.current.getContext("2d").getImageData(0, 0, signatureRef.current.canvasRef.current.width, signatureRef.current.canvasRef.current.height));
+        // handleDataImage(signatureRef.current.canvasRef.current.getContext("2d").getImageData(0, 0, signatureRef.current.canvasRef.current.width, signatureRef.current.canvasRef.current.height).data)
         var img = signatureRef.current.canvasRef.current.toDataURL('image/png');
-        handleDataImage(img);
+        handleDataImage(img, signIndex);
         setShow(false);
     }
 

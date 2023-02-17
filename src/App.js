@@ -20,7 +20,6 @@ class App extends Component {
     componentDidMount() {
         let loadingTask = pdfjsLib.getDocument(this.props.url);
         loadingTask.promise.then((doc) => {
-            console.log(doc);
             this.viewer.setState({
                 doc,
             });
@@ -66,7 +65,7 @@ class App extends Component {
             <div className="App">
                 <div className="App-header">
                     {/* <h2>Welcome to PDF.js</h2> */}
-                    {this.state.showSign ? "a" : "b"}
+                    {/* {this.state.showSign ? "a" : "b"} */}
                 </div>
                 <Toolbar
                     ref={(ref) => this.toolbar = ref}

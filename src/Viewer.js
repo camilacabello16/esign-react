@@ -30,7 +30,7 @@ class Viewer extends Component {
         let eventBus = new PDFJSViewer.EventBus();
         eventBus.on('pagesinit', (e) => {
             this.setState({
-                scale: this._pdfViewer.currentScale
+                scale: this._pdfViewer.currentScale * 1.5
             });
             if (this.props.onInit) {
                 this.props.onInit({});

@@ -7,4 +7,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px dashed #875A7B;
+}
+
+.button-send-find {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px 0;
+    background-color: #714b67;
+    width: 100%;
+}
+
+.button-send-find button {
+    color: white;
+    background-color: #017e84;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
 }
