@@ -4,11 +4,12 @@ import 'rodal/lib/rodal.css';
 import SignaturePad from 'react-signature-pad-wrapper';
 import './modal.css';
 
-const ModalSign = forwardRef(({ visible, onClose }, ref) => {
+const ModalSign = forwardRef(({ visible, onClose, handleDataImage }, ref) => {
     const signatureRef = useRef();
 
     const [signType, setSignType] = useState(0); //0: draw || 1: upload
     const [show, setShow] = useState(false);
+    // const []
 
     useImperativeHandle(ref, () => ({
         showModal: () => {
@@ -20,7 +21,16 @@ const ModalSign = forwardRef(({ visible, onClose }, ref) => {
     }), [show])
 
     const signAll = () => {
+        handleDataImage(signatureRef.current.canvasRef.current.getContext("2d").getImageData(0, 0, signatureRef.current.canvasRef.current.width, signatureRef.current.canvasRef.current.height).data)
+    }
+
+    const sign = () => {
         console.log(signatureRef.current);
+        console.log(signatureRef.current.canvasRef.current.getContext("2d").getImageData(0, 0, signatureRef.current.canvasRef.current.width, signatureRef.current.canvasRef.current.height));
+        handleDataImage(signatureRef.current.canvasRef.current.getContext("2d").getImageData(0, 0, signatureRef.current.canvasRef.current.width, signatureRef.current.canvasRef.current.height).data)
+        var img = signatureRef.current.canvasRef.current.toDataURL('image/png');
+        handleDataImage(img);
+        setShow(false);
     }
 
     const clearSign = () => {
@@ -52,13 +62,13 @@ const ModalSign = forwardRef(({ visible, onClose }, ref) => {
                                     ref={signatureRef}
                                     width={600}
                                     height={200}
-                                    options={{ minWidth: 1, maxWidth: 1, penColor: 'rgb(66, 133, 244)' }}
+                                    options={{ minWidth: 1, maxWidth: 1, penColor: '#00008b' }}
                                 />
                             </div>
                         </div>
                         <div className="form-sign-footer">
                             <button onClick={signAll}>Kí tất cả</button>
-                            <button>Kí</button>
+                            <button onClick={sign}>Kí</button>
                             <button>Hủy</button>
                         </div>
                     </Rodal>

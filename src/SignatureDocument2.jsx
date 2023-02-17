@@ -4,7 +4,6 @@ import './Viewer.css';
 import 'pdfjs-dist/web/pdf_viewer.css';
 import Draggable from 'react-draggable';
 import './SignatureDocument.css';
-import './modal.css';
 import ModalSign from './ModalSign';
 
 // Modal.setAppElement('#root');
@@ -20,7 +19,8 @@ class SignatureDocument2 extends Component {
             position: [],
             scrollTop: 0,
             positionSign: [],
-            visible: false
+            visible: false,
+            dataImage: []
         };
         this.myRef = React.createRef();
         this.modal = React.createRef();
@@ -95,6 +95,17 @@ class SignatureDocument2 extends Component {
         this.modal.current.showModal();
     }
 
+    handleDataImage = (dataImage) => {
+        var arr = [];
+        arr.push(dataImage);
+        console.log(dataImage);
+        this.setState({ dataImage: arr }, function () {
+            console.log(this.state.dataImage);
+        });
+
+        document.getElementById("image-sign").src = dataImage;
+    }
+
     render() {
         return (
             <div className='App-body'>
@@ -105,61 +116,55 @@ class SignatureDocument2 extends Component {
                         </div>
                         {this.state.positionSign.map((item, index) => {
                             return (
-                                <Draggable
+                                // <Draggable
+                                //     id='image-sign'
+                                //     key={index}
+                                //     handle=".handle"
+                                //     defaultPosition={{ x: item.position[0], y: item.position[1] }}
+                                //     onDrag={(e) => e.preventDefault()}
+                                // >
+                                //     <button
+                                //         className='field-sign'
+                                //         onClick={() => this.openModal()}
+                                //         style={{
+                                //             cursor: 'pointer'
+                                //         }}
+                                //     >
+                                //         <div>
+                                //             Chữ ký
+                                //         </div>
+                                //     </button>
+                                // </Draggable>
+                                <div
                                     key={index}
-                                    handle=".handle"
-                                    defaultPosition={{ x: item.position[0], y: item.position[1] }}
-                                    onDrag={(e) => e.preventDefault()}
+                                    style={{
+                                        position: 'absolute',
+                                        left: item.position[0],
+                                        top: item.position[1]
+                                    }}
+                                    // className="sign-zone"
+                                    className='field-sign'
                                 >
-                                    <button
-                                        className='field-sign'
+                                    <div
+                                        // className='field-sign'
                                         onClick={() => this.openModal()}
                                         style={{
                                             cursor: 'pointer'
                                         }}
                                     >
-                                        <div>
-                                            Chữ ký
-                                        </div>
-                                    </button>
-                                </Draggable>
+                                        Chữ ký
+                                    </div>
+                                    <img id='image-sign' />
+                                </div>
                             );
                         })}
                     </div>
                 </div>
-                {/* <Modal
-                    isOpen={this.state.isOpen}
-                    onRequestClose={() => this.closeModal()}
-                    contentLabel="Nhập chữ ký của bạn"
-                >
-                    <h2>Hello</h2>
-                    <button onClick={() => this.closeModal()}>close</button>
-                </Modal> */}
-                {/* <div
-                    className="modal-sign"
-                    style={this.state.visible == true ? { display: 'block' } : { display: 'none' }}
-                >
-                    <div className="modal-sign-head">
-                        <h3>Nhập chữ ký của bạn</h3>
-                    </div>
-                    <div className="modal-sign-body">
-                        <div>
-                            <label>Tên</label>
-                            <input />
-                        </div>
-                        <div>
-                            <SignaturePad options={{ minWidth: 1, maxWidth: 1, penColor: 'rgb(66, 133, 244)' }} />
-                        </div>
-                    </div>
-                    <div className="modal-sign-footer"></div>
-                </div> */}
-                {/* <Rodal visible={this.state.visible} onClose={this.closeModal.bind(this)}>
-                    <div>abc</div>
-                </Rodal> */}
                 <ModalSign
                     visible={this.state.visible}
                     onClose={this.closeModal}
                     ref={this.modal}
+                    handleDataImage={this.handleDataImage}
                 />
             </div>
         );
