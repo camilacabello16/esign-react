@@ -30,7 +30,7 @@ class Viewer extends Component {
         let eventBus = new PDFJSViewer.EventBus();
         eventBus.on('pagesinit', (e) => {
             this.setState({
-                scale: this._pdfViewer.currentScale * 1.5
+                scale: this._pdfViewer.currentScale
             });
             if (this.props.onInit) {
                 this.props.onInit({});
@@ -174,15 +174,15 @@ class Viewer extends Component {
             <div>
                 <div className="toolbar">
                     <div className="toolbar__sign">
-                        <button className="toolbar__button" onClick={() => this.signButton()}>sign</button>
+                        <button className="toolbar__button" onClick={() => this.signButton()}>Chữ ký</button>
                     </div>
-                    <div className="toolbar__text">
+                    {/* <div className="toolbar__text">
                         <button className="toolbar__button">text</button>
-                    </div>
+                    </div> */}
                     <div className="toolbar__text">
 
                         <button className="toolbar__button" onClick={() => this.confirmSignArea()}>
-                            Save
+                            Lưu
                         </button>
                     </div>
                 </div>
@@ -212,7 +212,7 @@ class Viewer extends Component {
                                                     <i className="fa-solid fa-arrows-up-down-left-right"></i>
                                                 </div>
                                                 <div className='signZone'>
-                                                    Sign
+                                                    Chữ ký
                                                 </div>
                                             </div>
                                         </Draggable>
@@ -230,7 +230,7 @@ class Viewer extends Component {
                                                     <i className="fa-solid fa-arrows-up-down-left-right"></i>
                                                 </div>
                                                 <div className='signZone'>
-                                                    Sign
+                                                    Chữ ký
                                                 </div>
                                             </div>
                                         </Draggable>

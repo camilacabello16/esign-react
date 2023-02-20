@@ -3,6 +3,7 @@ import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import SignaturePad from 'react-signature-pad-wrapper';
 import './modal.css';
+import { calculateImageSize } from "./calculateCoordinatePdf";
 
 const ModalSign = forwardRef(({ visible, onClose, handleDataImage, handleSignAll }, ref) => {
     const signatureRef = useRef();
@@ -51,6 +52,43 @@ const ModalSign = forwardRef(({ visible, onClose, handleDataImage, handleSignAll
         signatureRef.current.signaturePad.clear();
     }
 
+    const getBase64 = (file) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            console.log(reader.result);
+            return reader.result;
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    const uploadImageSign = (event) => {
+        clearSign();
+        signatureRef.current.penColor = 'transparent';
+
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = function () {
+            const canvas = signatureRef.current;
+            const context = canvas.canvasRef.current.getContext('2d');
+            const img = new Image();
+            img.onload = () => {
+                context.drawImage(img, signatureRef.current.canvasRef.current.width / 2 - calculateImageSize(img.width, img.height, signatureRef.current.canvasRef.current.height) / 2, 0, calculateImageSize(img.width, img.height, signatureRef.current.canvasRef.current.height), signatureRef.current.canvasRef.current.height);
+            };
+            img.src = reader.result;
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    const drawSign = () => {
+        clearSign();
+        signatureRef.current.penColor = '#00008b';
+    }
+
     return (
         <React.Fragment>
             {
@@ -63,8 +101,13 @@ const ModalSign = forwardRef(({ visible, onClose, handleDataImage, handleSignAll
                         <div className="sign-type-input">
                             <div className="button-sign-type">
                                 <div>
-                                    <button>Vẽ</button>
-                                    <input type={"file"} className="custom-file-input" accept=".png,.jpg"></input>
+                                    <button onClick={drawSign}>Vẽ</button>
+                                    <input
+                                        type={"file"}
+                                        className="custom-file-input"
+                                        accept=".png,.jpg"
+                                        onChange={uploadImageSign}
+                                    ></input>
                                 </div>
                                 <div>
                                     <button onClick={clearSign}>Xóa</button>

@@ -31,7 +31,7 @@ class SignatureDocument2 extends Component {
         let eventBus = new PDFJSViewer.EventBus();
         eventBus.on('pagesinit', (e) => {
             this.setState({
-                scale: this._pdfViewer.currentScale * 1.5
+                scale: this._pdfViewer.currentScale
             });
             if (this.props.onInit) {
                 this.props.onInit({});

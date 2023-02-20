@@ -13,3 +13,7 @@ export const calculateCoordicate = (xAxis, yAxis) => {
     }
     return obj;
 }
+
+export const calculateImageSize = (imgWidth, imgHeight, scaleHeight) => {
+    return imgWidth * (scaleHeight / imgHeight);
+}
